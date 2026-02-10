@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('person', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('person_name', 30);
+            $table->string('email', 100)->unique();
+            $table->string('password', 255);
+            $table->enum('role', ['user', 'admin'])->default('user');
+            $table->unsignedInteger('reading_goal')->default(0);
+            $table->unsignedInteger('books_read')->default(0);
+            $table->timestamps();
         });
     }
 
