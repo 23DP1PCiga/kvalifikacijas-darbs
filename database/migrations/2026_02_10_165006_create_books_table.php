@@ -10,18 +10,20 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('books', function (Blueprint $table) {
-            $table->id('book_id');
-            $table->string('title',150);
-            $table->string('genre',100);
-            $table->text('description');
-            $table->double('price');
-            $table->string('cober')->nullable();
-            $table->integer('publishing_year'); 
-            $table->double('rating');
-        });
-    }
+{
+    Schema::create('books', function (Blueprint $table) {
+        $table->id();
+        $table->string('title', 150);
+        $table->string('genre', 100);
+        $table->text('description');
+        $table->decimal('price', 8, 2);
+        $table->string('cover')->nullable();
+        $table->year('publishing_year');
+        $table->decimal('rating', 2, 1)->default(0);
+        $table->timestamps();
+    });
+}
+
 
     /**
      * Reverse the migrations.
