@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_books', function (Blueprint $table) {
+        Schema::create('boards', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('book_id')->constrained()->cascadeOnDelete();
+            $table->string('title', 150);
+            $table->text('description');
+            $table->foreignId('person_id')->constrained('person');
+            $table->timestamps();
         });
     }
 
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_books');
+        Schema::dropIfExists('boards');
     }
 };
