@@ -1,38 +1,22 @@
 <template>
   <v-app>
-    <v-app-bar color="primary" flat>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-
-      <v-toolbar-title>READALOT</v-toolbar-title>
-
-      <v-btn icon="mdi-dots-vertical" variant="text" />
+    <v-app-bar flat height="100">
+      <v-toolbar-title class="px-8 logo">READALOT</v-toolbar-title>
+      
+      <div class="d-flex align-center ga-7 px-9">
+        <v-btn class="books">GRĀMATAS</v-btn>
+        <v-btn class="subscription">ABONĒT</v-btn>
+        <v-btn class="signup">REĢISTRĒTIES</v-btn>
+      </div>
     </v-app-bar>
-
-    <v-navigation-drawer
-      v-model="drawer"
-      temporary
-    >
-      <v-list :items="items" />
-    </v-navigation-drawer>
 
     <v-main>
       <RouterView />
     </v-main>
+
+     
+    <v-footer class="app-footer  justify-center">&copy; READALOT 2026</v-footer>
   </v-app>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      drawer: false,
-      items: [
-        { title: 'Home', value: '/' },
-        { title: 'Books', value: '/books' },
-        { title: 'Login', value: '/login' },
-        { title: 'Contact', value: '/contact' },
-      ],
-    }
-  },
-}
-</script>
+
