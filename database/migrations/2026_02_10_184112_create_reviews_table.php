@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->decimal('rating', 2, 1)->default(0);
             $table->text('comment')->nullable();
-            $table->foreignId('person_id')->constrained('person');
+            $table->foreignId('user_id')->constrained('users');
             $table->foreignId('book_id')->constrained('books');
             $table->timestamps();
         });

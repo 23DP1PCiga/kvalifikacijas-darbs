@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('person_library', function (Blueprint $table) {
-                $table->foreignId('person_id')->constrained('person')->cascadeOnDelete();
+        Schema::create('user_library', function (Blueprint $table) {
+                $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
                 $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
                 $table->timestamps();
-                $table->primary(['person_id', 'book_id']);
+                $table->primary(['user_id', 'book_id']);
         });
     }
 
