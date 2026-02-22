@@ -6,7 +6,8 @@
       <div class="d-flex align-center ga-7 px-9">
         <v-btn class="books">GRĀMATAS</v-btn>
         <v-btn class="subscription">ABONĒT</v-btn>
-        <v-btn class="signup">REĢISTRĒTIES</v-btn>
+        <v-btn class="signup" to="/register">REĢISTRĒTIES</v-btn>
+
       </div>
     </v-app-bar>
 

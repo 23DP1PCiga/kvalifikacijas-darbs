@@ -32,7 +32,7 @@ const girl = window.location.origin + '/image/girl.png'
 
 .circle {
   position: absolute;
-  background: #bb797b;
+  background: #828270;
   border-radius: 50%;
   opacity: 0.08;
   z-index: 0;
