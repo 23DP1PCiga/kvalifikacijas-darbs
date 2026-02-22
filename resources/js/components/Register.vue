@@ -1,4 +1,5 @@
 <script setup>
+import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import axios from 'axios'
 
@@ -6,6 +7,7 @@ const user_name = ref('')
 const email = ref('')
 const password = ref('')
 const message = ref('')
+const router = useRouter()
 
 const register = async () => {
   try {
@@ -17,9 +19,9 @@ const register = async () => {
       password: password.value
     })
 
-    message.value = 'Reģistrācija veiksmīga'
-  } catch (e) {
-    message.value = 'Reģistrācijas kļūda'
+    router.push('/')
+  } catch (error) {
+    message.value = 'Nepareizs e-pasts vai parole'
   }
 }
 </script>
