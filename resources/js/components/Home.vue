@@ -28,7 +28,7 @@ onMounted(async () => {
     </div>
   </div>
 
-<v-container class="pa-0">
+<v-container fluid class="pa-0">
   <v-row class="ga-10">
 
     <v-col
