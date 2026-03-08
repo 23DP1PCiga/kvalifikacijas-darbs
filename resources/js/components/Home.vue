@@ -28,56 +28,7 @@ onMounted(async () => {
     </div>
   </div>
 
-<v-container fluid class="pa-0">
-  <v-row class="ga-10">
 
-    <v-col
-      v-for="book in books"
-      :key="book.id"
-      cols="auto"
-    >
-      <div class="book-card">
-
-        <v-img
-          :src="book.cover"
-          width="190"
-          height="260"
-          cover
-          class="book-image"
-        ></v-img>
-
-        <div class="book-type">
-         <!---->
-        </div>
-
-        <div class="book-title">
-          {{ book.title }}
-        </div>
-
-        <div class="book-author">
-          {{ book.author }}
-        </div>
-
-        <div class="d-flex align-center ga-2 mt-2">
-          <v-rating
-            :model-value="book.ratings_avg_rating || 0"
-            :length="5"
-            size="18"
-            color="#F59E0B"
-            readonly
-            half-increments
-          ></v-rating>
-
-          <span class="rating-text">
-            {{ book.ratings_avg_rating?.toFixed(1) || 0 }}
-          </span>
-        </div>
-
-      </div>
-    </v-col>
-
-  </v-row>
-</v-container>
 </template>
 
 

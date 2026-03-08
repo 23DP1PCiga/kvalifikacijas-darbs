@@ -41,5 +41,35 @@ class BookSeeder extends Seeder
             'author' => 'John Fabian Witt',
             'cover' => '/image/book1.jpg'
         ]);
+
+        Book::create([
+            'title' => 'Atomic Habits',
+            'author' => 'James Clear',
+            'cover' => '/image/book6.jpg'
+        ]);
+
+        Book::create([
+            'title' => 'The Psychology of Money',
+            'author' => 'Morgan Housel',
+            'cover' => '/image/book7.jpg'
+        ]);
+
+        Book::create([
+            'title' => 'Deep Work',
+            'author' => 'Cal Newport',
+            'cover' => '/image/book8.jpg'
+        ]);
+
+        Book::create([
+            'title' => 'Thinking Fast and Slow',
+            'author' => 'Daniel Kahneman',
+            'cover' => '/image/book9.jpg'
+        ]);
+
+        Book::create([
+            'title' => 'Start With Why',
+            'author' => 'Simon Sinek',
+            'cover' => '/image/book10.jpg'
+        ]);
     }
 }

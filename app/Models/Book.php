@@ -29,5 +29,7 @@ class Book extends Model
         {
             return $this->ratings()->count();
         }
+
+    
 }
 

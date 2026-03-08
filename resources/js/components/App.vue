@@ -16,7 +16,7 @@
   ></v-text-field>
 
       <div class="d-flex align-center ga-9 px-11">
-        <v-btn class="books">GRĀMATAS</v-btn>
+        <v-btn class="books" to="/books">GRĀMATAS</v-btn>
         <v-btn class="subscription">ABONĒT</v-btn>
         <v-btn class="signup" to="/register">REĢISTRĒTIES</v-btn>
 

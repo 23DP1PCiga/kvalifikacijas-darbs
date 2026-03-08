@@ -4,7 +4,7 @@ use App\Http\Controllers\AuthController;
 
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::get('/books', function () {
+Route::get('/api/books', function () {
     return \App\Models\Book::withCount('ratings')
         ->withAvg('ratings', 'rating')
         ->get();
