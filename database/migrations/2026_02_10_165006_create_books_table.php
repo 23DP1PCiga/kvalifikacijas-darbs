@@ -18,7 +18,7 @@ return new class extends Migration
         $table->longText('description')->nullable();
         $table->decimal('price', 8, 2)->nullable();
         $table->string('cover')->nullable();
-        $table->year('publishing_year')->nullable();
+        $table->unsignedSmallInteger('publishing_year')->nullable();
         $table->timestamps();
     });
 }
