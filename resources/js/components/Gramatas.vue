@@ -4,59 +4,98 @@ import axios from 'axios'
 
 const books = ref([])
 const sortType = ref('all')
+const sortOption = ref('new')
 
 const loadBooks = async () => {
-  const response = await axios.get('api/books')
+  const response = await axios.get('/api/books')
   books.value = response.data
 }
+
+const items = [
+  { title: 'Visi', value: 'all' },
+  { title: 'Jaunākās', value: 'new' },
+  { title: 'No A-Z', value: 'az' },
+  { title: 'Augstākais vērtējums', value: 'rating' }
+]
 
 onMounted(loadBooks)
 
 const sortedBooks = () => {
   let result = [...books.value]
 
-  if (sortType.value === 'rating') {
-    result.sort((a,b)=> b.ratings_avg_rating - a.ratings_avg_rating)
+  if (sortType.value !== 'all') {
+    result = result.filter(book => book.genre === sortType.value)
   }
 
-  if (sortType.value === 'az') {
-    result.sort((a,b)=> a.title.localeCompare(b.title))
-  }
+   if (sortOption.value === 'az') {
+  result.sort((a,b)=> a.title.localeCompare(b.title))
+ }
 
-  if (sortType.value === 'new') {
-    result.sort((a,b)=> new Date(b.created_at) - new Date(a.created_at))
-  }
+ if (sortOption.value === 'rating') {
+  result.sort((a,b)=> b.rating - a.rating)
+ }
+
+ if (sortOption.value === 'new') {
+  result.sort((a,b)=> b.publishing_year - a.publishing_year)
+ }
 
   return result
 }
 </script>
 
 <template>
-
 <v-container>
-
-<!-- CHIPS -->
+<div class="d-flex align-center justify-space-between mb-6">
 <div class="d-flex ga-4 mb-6">
 
 <v-chip
-@click="sortType='all'"
-:color="sortType==='all' ? 'primary' : ''"
->All</v-chip>
+@click="sortType='Trilleri'"
+:color="sortType==='Trilleri' ? 'accent' : ''"
+>Trilleri</v-chip>
 
 <v-chip
-@click="sortType='rating'"
-:color="sortType==='rating' ? 'primary' : ''"
->Top rated</v-chip>
+@click="sortType='Fantāzijas'"
+:color="sortType==='Fantāzijas' ? 'accent' : ''"
+>Fantāzijas</v-chip>
 
 <v-chip
-@click="sortType='new'"
-:color="sortType==='new' ? 'primary' : ''"
->Newest</v-chip>
+@click="sortType='Klasika'"
+:color="sortType==='Klasika' ? 'accent' : ''"
+>Klasika</v-chip>
 
 <v-chip
-@click="sortType='az'"
-:color="sortType==='az' ? 'primary' : ''"
->A-Z</v-chip>
+@click="sortType='Šausmas'"
+:color="sortType==='Šausmas' ? 'accent' : ''"
+>Šausmas</v-chip>
+
+<v-chip
+@click="sortType='Bizness'"
+:color="sortType==='Bizness' ? 'accent' : ''"
+>Bizness</v-chip>
+
+<v-chip
+@click="sortType='Finanses'"
+:color="sortType==='Finanses' ? 'accent' : ''"
+>Finanses</v-chip>
+</div>
+
+<v-menu>
+  <template v-slot:activator="{ props }">
+     <v-btn class="sortet" v-bind="props" variant="tonal" color="accent">Sortēt</v-btn>
+  </template>
+  <v-list>
+    <v-list-item
+      v-for="(item, index) in items"
+      :key="index"
+      @click="item.value === 'all' ? sortType='all' : sortOption=item.value"
+    >
+      <v-list-item-title>
+        {{ item.title }}
+      </v-list-item-title>
+    </v-list-item>
+  </v-list>
+</v-menu>
+
 </div>
 
 <v-row>
@@ -71,7 +110,6 @@ cols="auto"
 :src="book.cover"
 width="190"
 height="260"
-cover
 />
 
 <div class="book-title">
@@ -151,5 +189,12 @@ cover
   margin-bottom: 40px;
   margin-left: 20px;
   color: #828270;
+}
+
+.sortet{
+    font-family: "ABeeZee", sans-serif;
+    font-style: normal;
+    position:relative;
+    right:93px;
 }
 </style>

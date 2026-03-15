@@ -1,6 +1,5 @@
 <script setup>
 const girl = window.location.origin + '/image/girl.png'
-
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 

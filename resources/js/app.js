@@ -17,7 +17,8 @@ const vuetify = createVuetify({
         colors: {
           primary: '#828270',
           secondary: '#000000',
-          background: '#ffffff'
+          background: '#ffffff',
+          accent:'#c2848e;'
         },
       },
     },
@@ -26,6 +27,5 @@ const vuetify = createVuetify({
 
 
 createApp(App)
-  .use(router)
-  .use(vuetify)
+  .use(router).use(vuetify)
   .mount('#app')
