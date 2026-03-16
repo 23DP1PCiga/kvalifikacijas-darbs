@@ -1,14 +1,24 @@
 <script setup>
-import { ref, onMounted } from 'vue'
 import axios from 'axios'
+import { useRoute, useRouter } from 'vue-router'
+import { ref, onMounted, watch } from 'vue'
 
 const books = ref([])
 const sortType = ref('all')
 const sortOption = ref('new')
+const route = useRoute()
+const router = useRouter()
 
-const loadBooks = async () => {
-  const response = await axios.get('/api/books')
-  books.value = response.data
+const handleSort = (item) => {
+
+  if(item.value === 'all'){
+    sortType.value = 'all'
+    router.push('/books')   
+  } 
+  else {
+    sortOption.value = item.value
+  }
+
 }
 
 const items = [
@@ -18,7 +28,26 @@ const items = [
   { title: 'Augstākais vērtējums', value: 'rating' }
 ]
 
+const loadBooks = async () => {
+  if(route.query.q){
+    const response = await axios.get('/books/search?q=' + route.query.q)
+    books.value = response.data
+
+  } 
+  else {
+
+    const response = await axios.get('/api/books')
+    books.value = response.data
+
+  }
+
+}
+
+
 onMounted(loadBooks)
+watch(() => route.query.q, () => {
+  loadBooks()
+})
 
 const sortedBooks = () => {
   let result = [...books.value]
@@ -87,7 +116,7 @@ const sortedBooks = () => {
     <v-list-item
       v-for="(item, index) in items"
       :key="index"
-      @click="item.value === 'all' ? sortType='all' : sortOption=item.value"
+      @click="handleSort(item)"
     >
       <v-list-item-title>
         {{ item.title }}
@@ -135,13 +164,9 @@ height="260"
 
 
 </div>
-
 </v-col>
-
 </v-row>
-
 </v-container>
-
 </template>
 
 <style>

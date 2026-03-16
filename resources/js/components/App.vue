@@ -1,3 +1,31 @@
+<script>
+import { useRouter } from 'vue-router'
+
+export default {
+
+  data() {
+    return {
+      search: ''
+    }
+  },
+
+  methods: {
+
+    searchBooks() {
+
+      if (this.search.trim() !== '') {
+
+        this.$router.push(`/books?q=${this.search}`)
+
+      }
+
+    }
+
+  }
+
+}
+</script>
+
 <template>
   <v-app>
     <v-app-bar flat height="100">
@@ -13,7 +41,8 @@
     rounded="xl"
     width="500"
     class="mx-10"
-  ></v-text-field>
+    @keyup.enter="searchBooks"
+  />
 
       <div class="d-flex align-center ga-9 px-11">
         <v-btn class="books" to="/books">GRĀMATAS</v-btn>
@@ -32,14 +61,6 @@
   </v-app>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      search: ''
-    }
-  }
-}
-</script>
+
 
 
