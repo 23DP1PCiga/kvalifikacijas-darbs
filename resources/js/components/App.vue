@@ -1,6 +1,4 @@
 <script>
-import { useRouter } from 'vue-router'
-
 export default {
 
   data() {
@@ -10,17 +8,16 @@ export default {
   },
 
   methods: {
-
     searchBooks() {
+      const query = this.search.trim()
 
-      if (this.search.trim() !== '') {
-
-        this.$router.push(`/books?q=${this.search}`)
-
+      if (query !== '') {
+        this.$router.push({
+          path: '/books',
+          query: { q: query }
+        })
       }
-
     }
-
   }
 
 }

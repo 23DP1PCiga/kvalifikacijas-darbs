@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../components/Home.vue';
 import Register from '../components/Register.vue'
 import Books from '../components/Gramatas.vue'
+import BookPage from '../components/BookPage.vue'
 
 const routes = [
   {
@@ -17,7 +18,11 @@ const routes = [
    {
     path: '/books',
     component: Books
-  }
+  },
+  {
+  path: '/books/:id',
+  component: BookPage
+}
 ]
 
 const router = createRouter({

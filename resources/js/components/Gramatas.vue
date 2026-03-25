@@ -9,6 +9,10 @@ const sortOption = ref('new')
 const route = useRoute()
 const router = useRouter()
 
+const goToBook = (id) => {
+  router.push(`/books/${id}`)
+}
+
 const handleSort = (item) => {
 
   if(item.value === 'all'){
@@ -29,25 +33,30 @@ const items = [
 ]
 
 const loadBooks = async () => {
-  if(route.query.q){
-    const response = await axios.get('/books/search?q=' + route.query.q)
+  if (route.query.q) {
+    const response = await axios.get('/api/books/search', {
+      params: { q: route.query.q }
+    })
     books.value = response.data
-
-  } 
-  else {
-
+  } else {
     const response = await axios.get('/api/books')
     books.value = response.data
-
   }
-
 }
 
 
 onMounted(loadBooks)
-watch(() => route.query.q, () => {
+watch(() => route.query.q, (newQuery) => {
   loadBooks()
 })
+
+const fetchBooks = async (query) => {
+  const res = await axios.get('/api/books/search', {
+    params: { q: query }
+  })
+
+  books.value = res.data
+}
 
 const sortedBooks = () => {
   let result = [...books.value]
@@ -133,7 +142,7 @@ v-for="book in sortedBooks()"
 :key="book.id"
 cols="auto"
 >
-<div class="book-card">
+<div class="book-card" @click="goToBook(book.id)">
 
 <v-img
 :src="book.cover"
@@ -172,6 +181,12 @@ height="260"
 <style>
 .book-card {
   width: 200px;
+   cursor:pointer;
+  transition:0.2s;
+}
+
+.book-card:hover{
+  transform:translateY(-5px);
 }
 
 .book-image {

@@ -2,26 +2,20 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\API\BookController;
+use App\Http\Controllers\API\ReviewController;
 use App\Models\Book;
 
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::get('/api/books', function () {
-    return \App\Models\Book::withCount('ratings')
-        ->withAvg('ratings', 'rating')
-        ->get();
-});
+Route::get('api/books', [BookController::class, 'index']);
 
-Route::get('/books/search', function (Request $request) {
-    $query = $request->q;
-    return Book::where('title', 'LIKE', "%{$query}%")
-        ->orWhere('author', 'LIKE', "%{$query}%")
-        ->get();
-});
+Route::get('/api/books/search', [BookController::class, 'search']);
 
+Route::get('/api/books/{book}', [BookController::class, 'show']);
 
-
-
+Route::get('/api/books/{id}/comments', [ReviewController::class, 'index']);
+Route::post('/api/comments', [ReviewController::class, 'store']);
 
 
 
