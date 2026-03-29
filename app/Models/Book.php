@@ -17,20 +17,13 @@ class Book extends Model
         'publishing_year'
     ];
 
+    
     public function ratings()
-        {
-            return $this->hasMany(\App\Models\Rating::class);
-        }
+    {
+        return $this->hasMany(\App\Models\Review::class);
+    }
 
-    public function getAverageRatingAttribute()
-        {
-            return round($this->ratings()->avg('rating'), 1);
-        }
-
-    public function getRatingsCountAttribute()
-        {
-            return $this->ratings()->count();
-        }
+   
      
     
 }

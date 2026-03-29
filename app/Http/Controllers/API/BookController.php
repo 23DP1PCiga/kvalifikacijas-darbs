@@ -21,16 +21,25 @@ class BookController extends Controller
         ->get();
 }
 
-    public function index()
-    {
-        return Book::withCount('ratings')
-            ->withAvg('ratings', 'rating')
-            ->get();
-    }
+   public function index()
+{
+    return Book::withCount(['ratings as ratings_count' => function ($q) {
+            $q->whereNotNull('rating');
+        }])
+        ->withAvg(['ratings as avg_rating' => function ($q) {
+            $q->whereNotNull('rating');
+        }], 'rating')
+        ->get();
+}
 
     public function show(Book $book)
-    {
-        return $book->loadAvg('ratings', 'rating')
-                ->loadCount('ratings');
+{
+    return $book
+        ->loadCount(['ratings as ratings_count' => function ($q) {
+            $q->whereNotNull('rating');
+        }])
+        ->loadAvg(['ratings as avg_rating' => function ($q) {
+            $q->whereNotNull('rating');
+        }], 'rating');
 }
 }

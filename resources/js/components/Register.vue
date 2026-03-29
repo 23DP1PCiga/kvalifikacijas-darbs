@@ -17,7 +17,12 @@ const register = async () => {
       user_name: user_name.value,
       email: email.value,
       password: password.value
+
     })
+
+    const res = await axios.get('/user')
+
+  localStorage.setItem('user', JSON.stringify(res.data))
 
     router.push('/')
   } catch (error) {

@@ -30,10 +30,29 @@ class AuthController extends Controller
             ], 401);
         }
     }
-    auth()->login($user);
+
+   auth()->login($user);
+
     return response()->json([
         'message' => 'Logged in successfully',
         'user' => $user
+    ]); 
+}
+
+    public function user(Request $request)
+    {
+        return response()->json($request->user());
+    }
+
+    public function logout()
+{
+    auth()->logout();
+
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+
+    return response()->json([
+        'message' => 'Logged out'
     ]);
 }
 }

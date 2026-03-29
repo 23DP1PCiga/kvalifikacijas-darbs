@@ -1,15 +1,28 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
 import { useRoute } from 'vue-router'
+import axios from 'axios'
+
+axios.defaults.withCredentials = true
+axios.defaults.baseURL = 'http://127.0.0.1:8001'
 
 const route = useRoute()
+
 const book = ref(null)
 const rating = ref(0)
 const newComment = ref('')
 const comments = ref([])
+const user = ref(null) 
 
 
+const loadUser = async () => {
+  try {
+    const res = await axios.get('/user')
+    user.value = res.data
+  } catch {
+    user.value = null
+  }
+}
 
 const loadBook = async () => {
   const response = await axios.get('/api/books/' + route.params.id)
@@ -19,16 +32,17 @@ const loadBook = async () => {
 const loadComments = async () => {
   try {
     const res = await axios.get(`/api/books/${route.params.id}/comments`)
-
     comments.value = Array.isArray(res.data) ? res.data : []
-
   } catch (e) {
     console.error(e)
     comments.value = []
   }
 }
+
 const addComment = async () => {
   if (!newComment.value.trim()) return
+
+  await axios.get('/sanctum/csrf-cookie')
 
   await axios.post('/api/comments', {
     book_id: route.params.id,
@@ -39,10 +53,11 @@ const addComment = async () => {
   newComment.value = ''
   rating.value = 0
 
-  await loadComments() 
+  await loadComments()
 }
 
 onMounted(() => {
+  loadUser()    
   loadBook()
   loadComments()
 })
@@ -53,47 +68,55 @@ onMounted(() => {
 
   <div class="top-section">
 
-  <v-img
-    :src="book.cover"
-    width="250"
-    height="360"
-  />
+    <v-img
+      :src="book.cover"
+      width="250"
+      height="360"
+    />
 
-  <div class="info">
+    <div class="info">
 
-    <div class="author">
-      {{ book.author }}
-    </div>
+      <div class="author">
+        {{ book.author }}
+      </div>
 
-    <div class="title">
-      {{ book.title }}
-    </div>
+      <div class="title">
+        {{ book.title }}
+      </div>
 
-    <div class="actions">
-      <v-btn variant="tonal" color="accent">Lasīt</v-btn>
-    </div>
+      <div class="actions">
+        <v-btn variant="tonal" color="accent">Lasīt</v-btn>
+      </div>
 
-    <div class="description">
-      {{ book.description }}
-    </div>
+      <div class="description">
+        {{ book.description }}
+      </div>
 
-    <div class="rating">
-      <v-rating
-        :model-value="book.ratings_avg_rating || 0"
-        readonly
-        half-increments
-      />
-      {{ book.ratings_avg_rating?.toFixed(1) || 0 }}
-    </div>
+     <div class="rating">
+    <v-rating
+      :model-value="book.avg_rating || 0"
+      readonly
+      half-increments
+      color="#F59E0B"
+    />
 
+  <span class="rating-value">
+  {{ book.avg_rating ? Number(book.avg_rating).toFixed(1) : '0.0' }}
+</span>
+
+    <span class="rating-count">
+      ({{ book.ratings_count || 0 }})
+    </span>
   </div>
- </div>
-</div>
 
-  
+    </div>
+  </div>
+
   <div class="comments-section">
 
-    <div class="review-title">Dalieties savā viedoklī</div>
+  <div class="review-title">Dalieties savā viedoklī</div>
+
+  <div v-if="user">
 
     <v-rating
       v-model="rating"
@@ -108,25 +131,43 @@ onMounted(() => {
       variant="outlined"
     />
 
-    <v-btn variant="tonal" color="accent" @click="addComment" 
-    :disabled="!newComment.trim()">
+    <v-btn 
+      variant="tonal" 
+      color="accent" 
+      @click="addComment"
+      :disabled="!newComment.trim()"
+    >
       Iesniegt
     </v-btn>
-    
-    <div v-if="comments.filter(c => c.comment).length === 0" class="mt-4">
-      Nav komentāru
-    </div>
-
-    <div 
-    v-for="comment in (Array.isArray(comments) ? comments : []).filter(c => c.comment)" 
-    :key="comment.id"
-    class="comment"
-    >
-      ⭐ {{ comment.rating || 0 }}
-      <div>{{ comment.comment }}</div>
-    </div>
 
   </div>
+
+  <div v-else class="mt-4 text-grey">
+    Lūdzu, piesakieties lai komentētu
+  </div>
+
+  <div v-if="comments.filter(c => c.comment).length === 0" class="mt-4">
+    Nav komentāru
+  </div>
+
+  <div 
+    v-for="comment in comments.filter(c => c.comment)" 
+    :key="comment.id"
+    class="comment"
+  >
+    <v-rating
+    :model-value="comment.rating || 0"
+    readonly
+    size="18"
+    density="compact"
+    color="#F59E0B"
+  />
+    <div>{{ comment.comment }}</div>
+  </div>
+
+</div>
+
+</div>
 </template>
 
 <style>

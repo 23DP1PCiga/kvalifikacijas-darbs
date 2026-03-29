@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Review;
 
 class ReviewController extends Controller
 {
@@ -15,16 +16,17 @@ class ReviewController extends Controller
             ->get();
     }
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'book_id' => 'required|exists:books,id',
-            'comment' => 'required|string|max:1000',
-            'rating' => 'nullable|numeric|min:0|max:5'
-        ]);
+   public function store(Request $request)
+{
+    $validated = $request->validate([
+        'book_id' => 'required|exists:books,id',
+        'comment' => 'required|string|max:1000',
+        'rating' => 'nullable|numeric|min:0|max:5'
+    ]);
 
-        $validated['user_id'] = 1;
-
-        return Review::create($validated);
-    }
+    return Review::create([
+        ...$validated,
+        'user_id' => auth()->id()
+    ]);
+}
 }

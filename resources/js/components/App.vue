@@ -1,13 +1,29 @@
 <script>
+import axios from 'axios'
+
 export default {
 
   data() {
     return {
-      search: ''
+      search: '',
+      user: null
     }
   },
 
+  mounted() {
+  const savedUser = localStorage.getItem('user')
+
+  if (savedUser) {
+    this.user = JSON.parse(savedUser)
+  } else {
+    axios.get('/user')
+      .then(res => this.user = res.data)
+      .catch(() => this.user = null)
+  }
+},
+
   methods: {
+
     searchBooks() {
       const query = this.search.trim()
 
@@ -17,10 +33,21 @@ export default {
           query: { q: query }
         })
       }
+    },
+
+   async logout() {
+  await axios.get('/sanctum/csrf-cookie')
+  await axios.post('/logout')
+
+  this.user = null
+  localStorage.removeItem('user')
+
+  this.$router.push('/')
     }
   }
-
 }
+
+
 </script>
 
 <template>
@@ -44,8 +71,15 @@ export default {
       <div class="d-flex align-center ga-9 px-11">
         <v-btn class="books" to="/books">GRĀMATAS</v-btn>
         <v-btn class="subscription">ABONĒT</v-btn>
-        <v-btn class="signup" to="/register">REĢISTRĒTIES</v-btn>
-
+        <v-btn v-if="user">
+        {{ user.user_name }}
+      </v-btn>
+      <v-btn v-else class="signup" to="/register">
+        REĢISTRĒTIES
+      </v-btn>
+      <v-btn v-if="user" @click="logout">
+        LOGOUT
+      </v-btn>
       </div>
     </v-app-bar>
 
