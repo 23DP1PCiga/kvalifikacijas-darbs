@@ -145,9 +145,11 @@ cols="auto"
 <div class="book-card" @click="goToBook(book.id)">
 
 <v-img
-:src="book.cover"
-width="190"
-height="260"
+  :src="book.cover && book.cover.startsWith('books/')
+    ? '/storage/' + book.cover
+    : book.cover"
+    width="190"
+    height="260"
 />
 
 <div class="book-title">
@@ -159,7 +161,7 @@ height="260"
 </div>
 <div class="d-flex align-center ga-2 mt-2">
           <v-rating
-            :model-value="book.avg_rating || 0"
+            :model-value="book.reviews_avg_rating || 0"
             :length="5"
             size="18"
             color="#F59E0B"
@@ -167,8 +169,8 @@ height="260"
             half-increments
           />
           
-           <span class="rating-count">
-            ({{ book.ratings_count || 0 }})
+            <span class="rating-value">
+            {{ book.reviews_avg_rating ? Number(book.reviews_avg_rating).toFixed(1) : '0.0' }}
           </span>
         </div>
 

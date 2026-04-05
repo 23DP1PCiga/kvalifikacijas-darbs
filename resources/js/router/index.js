@@ -6,6 +6,9 @@ import BookPage from '../components/BookPage.vue'
 
 import Saved from '../components/Saved.vue'
 import MyComments from '../components/MyComments.vue'
+import Admin from '../components/Admin.vue'
+import AdminCreate from '../components/AdminCreate.vue'
+import AdminEdit from '../components/AdminEdit.vue'
 
 
 
@@ -32,7 +35,20 @@ const routes = [
 
   { 
     path: '/comments', 
-    component: MyComments }
+    component: MyComments 
+  },
+  {
+    path: '/admin',
+    component: Admin
+  },
+  {
+    path: '/admin/create',
+    component: AdminCreate
+  },
+  {
+    path: '/admin/edit/:id',
+    component: AdminEdit
+  }
 ]
 
 

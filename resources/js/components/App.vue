@@ -73,6 +73,14 @@ mounted() {
         </template>
 
         <v-list>
+          <v-list-item 
+          v-if="user.role === 'admin'" 
+          @click="$router.push('/admin')"
+        >
+          <v-list-item-title>Admin panel</v-list-item-title>
+          </v-list-item>
+
+          <v-divider v-if="user.role === 'admin'" />
 
           <v-list-item @click="$router.push('/saved')">
             <v-list-item-title>Saglabātās grāmatas</v-list-item-title>
@@ -81,7 +89,6 @@ mounted() {
           <v-list-item @click="$router.push('/comments')">
             <v-list-item-title>Mani komentāri</v-list-item-title>
           </v-list-item>
-
 
           <v-divider />
 

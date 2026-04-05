@@ -14,6 +14,10 @@ const newComment = ref('')
 const comments = ref([])
 const user = ref(null) 
 
+const deleteReview = async (id) => {
+  await axios.delete('/api/admin/reviews/' + id)
+  comments.value = comments.value.filter(c => c.id !== id)
+}
 
 const loadUser = async () => {
   try {
@@ -77,11 +81,13 @@ onMounted(() => {
 
   <div class="top-section">
 
-    <v-img
-      :src="book.cover"
-      width="250"
-      height="360"
-    />
+<v-img
+  :src="book.cover && book.cover.startsWith('books/')
+    ? '/storage/' + book.cover
+    : book.cover"
+    width="250"
+    height="360"
+/>
 
     <div class="info">
 
@@ -161,19 +167,38 @@ onMounted(() => {
   </div>
 
   <div 
-    v-for="comment in comments.filter(c => c.comment)" 
-    :key="comment.id"
-    class="comment"
-  >
+  v-for="comment in comments.filter(c => c.comment)" 
+  :key="comment.id"
+  class="comment"
+>
+
+  <div class="comment-left">
+    <div class="user-name">
+      {{ comment.user?.user_name || 'User' }}
+    </div>
+
     <v-rating
-    :model-value="comment.rating || 0"
-    readonly
-    size="18"
-    density="compact"
-    color="#F59E0B"
-  />
+      :model-value="comment.rating || 0"
+      readonly
+      size="18"
+      density="compact"
+      color="#F59E0B"
+    />
+
     <div>{{ comment.comment }}</div>
   </div>
+
+  <v-btn
+    v-if="user?.role === 'admin'"
+    icon
+    class="delete-btn"
+    color="accent"
+    @click.stop="deleteReview(comment.id)"
+  >
+    🗑
+  </v-btn>
+
+</div>
 
 </div>
 
@@ -235,6 +260,31 @@ onMounted(() => {
   display: flex;
   gap: 12px; 
   margin-top: 10px;
+}
+
+.comment {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 20px;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.comment-left {
+  max-width: 90%;
+}
+
+.user-name {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #424242;
+}
+
+.delete-btn {
+  min-width: 36px !important;
+  height: 36px !important;
+  padding: 0 !important;
 }
 
 </style>

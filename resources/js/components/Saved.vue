@@ -68,12 +68,12 @@ const remove = async (id) => {
   color: #424242;
 }
 
-.card {
+.v-card {
   cursor: pointer;
   transition: 0.2s;
 }
 
-.card:hover {
+.v-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(0,0,0,0.1);
 }

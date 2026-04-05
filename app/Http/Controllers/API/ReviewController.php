@@ -16,36 +16,42 @@ class ReviewController extends Controller
             ->get();
     }
 
-   public function store(Request $request)
-{
-    $validated = $request->validate([
-        'book_id' => 'required|exists:books,id',
-        'comment' => 'required|string|max:1000',
-        'rating' => 'nullable|numeric|min:0|max:5'
-    ]);
+        public function store(Request $request)
+        {
+            if (!auth()->check()) {
+                return response()->json(['message' => 'Unauthorized'], 401);
+            }
 
-    return Review::create([
-        ...$validated,
-        'user_id' => auth()->id()
-    ]);
-}
+            $validated = $request->validate([
+                'book_id' => 'required|exists:books,id',
+                'comment' => 'required|string|max:1000',
+                'rating' => 'required|numeric|min:1|max:5'
+            ]);
 
-public function myComments()
-{
-    return \App\Models\Review::with('book')
-        ->where('user_id', auth()->id())
-        ->whereNotNull('comment')
-        ->where('comment', '!=', '')
-        ->latest()
-        ->get();
-}
+           return Review::with('user')
+            ->where('book_id', $bookId)
+            ->whereNotNull('comment')
+            ->where('comment', '!=', '')
+            ->latest()
+            ->get();
+        }
 
-public function myRatings()
-{
-    return \App\Models\Review::with('book')
-        ->where('user_id', auth()->id())
-        ->whereNotNull('rating')
-        ->latest()
-        ->get();
-}
+        public function myComments()
+        {
+            return \App\Models\Review::with('book')
+                ->where('user_id', auth()->id())
+                ->whereNotNull('comment')
+                ->where('comment', '!=', '')
+                ->latest()
+                ->get();
+        }
+
+        public function myRatings()
+        {
+            return \App\Models\Review::with('book')
+                ->where('user_id', auth()->id())
+                ->whereNotNull('rating')
+                ->latest()
+                ->get();
+        }
 }

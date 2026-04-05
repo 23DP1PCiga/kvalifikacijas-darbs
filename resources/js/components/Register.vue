@@ -22,7 +22,7 @@ const register = async () => {
 
     const res = await axios.get('/user')
 
-  localStorage.setItem('user', JSON.stringify(res.data))
+    localStorage.setItem('user', JSON.stringify(res.data))
 
     window.location.href = '/'
 

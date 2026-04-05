@@ -7,9 +7,9 @@ use App\Http\Controllers\API\ReviewController;
 use App\Models\Book;
 
 Route::post('/register', [AuthController::class, 'register']);
-Route::get('/user', [AuthController::class, 'user']);
+Route::get('/user', [AuthController::class, 'user'])->middleware('auth:sanctum');
 Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::get('/{any}', function () {
-   return view('app');
-})->where('any', '.*');
+   return view('app'); 
+})->where('any', '^(?!api).*$');
