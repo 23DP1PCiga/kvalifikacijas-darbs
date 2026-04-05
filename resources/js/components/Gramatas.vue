@@ -159,15 +159,16 @@ height="260"
 </div>
 <div class="d-flex align-center ga-2 mt-2">
           <v-rating
-            :model-value="book.ratings_avg_rating || 0"
+            :model-value="book.avg_rating || 0"
             :length="5"
             size="18"
             color="#F59E0B"
             readonly
             half-increments
           />
-          <span class="rating-text">
-            {{ book.ratings_avg_rating?.toFixed(1) || 0 }}
+          
+           <span class="rating-count">
+            ({{ book.ratings_count || 0 }})
           </span>
         </div>
 

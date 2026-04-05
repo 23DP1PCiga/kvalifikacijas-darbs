@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Models\Rating::class);
     }
+
+    public function boards()
+{
+    return $this->hasMany(\App\Models\Board::class);
+}
 }

@@ -19,8 +19,8 @@ onMounted(async () => {
     <div class="circle circle3"></div>
     <div class="circle circle4"></div>
     <div class="hero-left">
-      <h1>WELCOME TO READALOT</h1>
-      <p>A house of books</p>
+      <h1>LAIPNI LŪGTI READALOT</h1>
+      <p>Daudzu grāmatu māja</p>
     </div>
     <div class="hero-right">
       <img :src="girl" class="hero-img">

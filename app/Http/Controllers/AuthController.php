@@ -23,6 +23,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        
     } else {
         if (!Hash::check($request->password, $user->password)) {
             return response()->json([

@@ -24,7 +24,8 @@ const register = async () => {
 
   localStorage.setItem('user', JSON.stringify(res.data))
 
-    router.push('/')
+    window.location.href = '/'
+
   } catch (error) {
     message.value = 'Nepareizs e-pasts vai parole'
   }
@@ -66,7 +67,7 @@ const register = async () => {
 
 h2 {
   font-family: "ABeeZee", sans-serif;
-  font-weight: 400;
+  font-weight: 700;
   text-align: center;
   margin-bottom: 30px;
   color: #424242;
@@ -81,16 +82,17 @@ h2 {
 
 .v-btn {
   height: 48px;
-  font-weight: 600;
-  letter-spacing: 1px;
   font-family: "ABeeZee", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #ffffff;
   font-weight: 400;
   font-style: normal;
 }
 
 p {
   text-align: center;
-  color: #4CAF50;
+  color: #c2848e;
   font-weight: 500;
 }
 

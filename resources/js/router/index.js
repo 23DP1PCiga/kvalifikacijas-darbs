@@ -4,15 +4,18 @@ import Register from '../components/Register.vue'
 import Books from '../components/Gramatas.vue'
 import BookPage from '../components/BookPage.vue'
 
+import Saved from '../components/Saved.vue'
+import MyComments from '../components/MyComments.vue'
+import MyRatings from '../components/MyRatings.vue'
+
+
 const routes = [
   {
     path: '/',
-    name: 'home',
     component: Home,
   },
   {
     path: '/register',
-    name: 'register',
     component: Register,
   },
    {
@@ -22,8 +25,20 @@ const routes = [
   {
   path: '/books/:id',
   component: BookPage
-}
+  },
+  { 
+    path: '/saved', 
+    component: Saved },
+
+  { 
+    path: '/comments', 
+    component: MyComments },
+
+  { 
+    path: '/ratings', 
+    component: MyRatings }
 ]
+
 
 const router = createRouter({
   history: createWebHistory(),

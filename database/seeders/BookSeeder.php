@@ -16,7 +16,7 @@ class BookSeeder extends Seeder
 
 ['title'=>'Hobits','author'=>'Dž. R. R. Tolkins','genre'=>'Fantāzijas','description'=>'Bilbo Baginss dodas piedzīvojumā kopā ar rūķiem.','year'=>1937,'cover'=>'/image/hobit.jpg'],
 ['title'=>'Gredzenu pavēlnieks','author'=>'Dž. R. R. Tolkins','genre'=>'Fantāzijas','description'=>'Episks stāsts par gredzena iznīcināšanu.','year'=>1954,'cover'=>'/image/Gredzenu-pavelnieks.jpg'],
-['title'=>'Harijs Poters un Filozofu akmens','author'=>'Dž. K. Roulinga','genre'=>'Fantāzijas','description'=>'Zēns atklāj, ka ir burvis.','year'=>1997,'cover'=>'/image/harijspotersunfilozofuakmens.jpg.jpg'],
+['title'=>'Harijs Poters un Filozofu akmens','author'=>'Dž. K. Roulinga','genre'=>'Fantāzijas','description'=>'Zēns atklāj, ka ir burvis.','year'=>1997,'cover'=>'/image/harijspotersunfilozofuakmens.jpg'],
 ['title'=>'Harijs Poters un Noslēpumu kambaris','author'=>'Dž. K. Roulinga','genre'=>'Fantāzijas','description'=>'Harijs atgriežas Cūkkārpā otrajā gadā.','year'=>1998,'cover'=>'/image/harijs_poters_un_noslepumu_kamb.jpg'],
 ['title'=>'Vēja vārds','author'=>'Patriks Rotfuss','genre'=>'Fantāzijas','description'=>'Leģendārā burvja Kvota stāsts.','year'=>2007,'cover'=>'/image/veja-vards.jpeg'],
 
@@ -44,19 +44,19 @@ class BookSeeder extends Seeder
 
 /* ================= BIZNESS ================= */
 
-['title'=>'Sāc ar kāpēc','author'=>'Saimons Sineks','genre'=>'Bizness','description'=>'Kāpēc veiksmīgi līderi sāk ar jautājumu kāpēc.','year'=>2009],
-['title'=>'No laba uz izcilu','author'=>'Džims Kolinss','genre'=>'Bizness','description'=>'Kā uzņēmumi kļūst izcili.','year'=>2001],
-['title'=>'Lean Startup','author'=>'Ēriks Rīss','genre'=>'Bizness','description'=>'Jauna pieeja uzņēmējdarbībai.','year'=>2011],
-['title'=>'4 stundu darba nedēļa','author'=>'Tims Feriss','genre'=>'Bizness','description'=>'Kā strādāt gudrāk.','year'=>2007],
-['title'=>'Zilā okeāna stratēģija','author'=>'V. Čans Kims','genre'=>'Bizness','description'=>'Jaunas tirgus telpas radīšana.','year'=>2005],
+['title'=>'Sāc ar kāpēc','author'=>'Saimons Sineks','genre'=>'Bizness','description'=>'Kāpēc veiksmīgi līderi sāk ar jautājumu kāpēc.','year'=>2009,'cover'=>'/image/start-with-why.webp'],
+['title'=>'No laba uz izcilu','author'=>'Džims Kolinss','genre'=>'Bizness','description'=>'Kā uzņēmumi kļūst izcili.','year'=>2001,'cover'=>'/image/good-to-great.jpg'],
+['title'=>'Lean Startup','author'=>'Ēriks Rīss','genre'=>'Bizness','description'=>'Jauna pieeja uzņēmējdarbībai.','year'=>2011,'cover'=>'/image/lean-startup.jpg'],
+['title'=>'4 stundu darba nedēļa','author'=>'Tims Feriss','genre'=>'Bizness','description'=>'Kā strādāt gudrāk.','year'=>2007,'cover'=>'/image/4-hour-workweek.jpg'],
+['title'=>'Zilā okeāna stratēģija','author'=>'V. Čans Kims','genre'=>'Bizness','description'=>'Jaunas tirgus telpas radīšana.','year'=>2005,'cover'=>'/image/zila-okeana-strategija.jpg'],
 
 /* ================= FINANSES ================= */
 
-['title'=>'Bagātais tētis, nabagais tētis','author'=>'Roberts Kijosaki','genre'=>'Finanses','description'=>'Domāšana par naudu.','year'=>1997],
-['title'=>'Naudas psiholoģija','author'=>'Morgans Housels','genre'=>'Finanses','description'=>'Kā cilvēki domā par naudu.','year'=>2020],
-['title'=>'The Intelligent Investor','author'=>'Bendžamins Grehems','genre'=>'Finanses','description'=>'Investēšanas klasika.','year'=>1949],
-['title'=>'I Will Teach You to Be Rich','author'=>'Ramits Sethi','genre'=>'Finanses','description'=>'Personīgo finanšu pārvaldība.','year'=>2009],
-['title'=>'Your Money or Your Life','author'=>'Viki Robina','genre'=>'Finanses','description'=>'Attiecības ar naudu.','year'=>1992]
+['title'=>'Bagātais tētis, nabagais tētis','author'=>'Roberts Kijosaki','genre'=>'Finanses','description'=>'Domāšana par naudu.','year'=>1997,'cover'=>'/image/bagatais-tetis-nabagais-tetis.webp'],
+['title'=>'Naudas psiholoģija','author'=>'Morgans Housels','genre'=>'Finanses','description'=>'Kā cilvēki domā par naudu.','year'=>2020,'cover'=>'/image/naudas-psihologija.webp'],
+['title'=>'The Intelligent Investor','author'=>'Bendžamins Grehems','genre'=>'Finanses','description'=>'Investēšanas klasika.','year'=>1949,'cover'=>'/image/the-intelegent-investor.jpg'],
+['title'=>'I Will Teach You to Be Rich','author'=>'Ramits Sethi','genre'=>'Finanses','description'=>'Personīgo finanšu pārvaldība.','year'=>2009,'cover'=>'/image/i-will-teach-you-to-be-rich.jpg'],
+['title'=>'Your Money or Your Life','author'=>'Viki Robina','genre'=>'Finanses','description'=>'Attiecības ar naudu.','year'=>1992,'cover'=>'/image/your-money-or-your-life.jpg']
 
         ];
 

@@ -40,7 +40,7 @@ const loadComments = async () => {
 }
 
 const addComment = async () => {
-  if (!newComment.value.trim()) return
+  if (!newComment.value.trim() || rating.value === 0) return
 
   await axios.get('/sanctum/csrf-cookie')
 
@@ -54,6 +54,15 @@ const addComment = async () => {
   rating.value = 0
 
   await loadComments()
+  await loadBook()
+}
+
+const saveBook = async () => {
+  await axios.get('/sanctum/csrf-cookie')
+
+  await axios.post('/api/saved-books', {
+    book_id: route.params.id
+  })
 }
 
 onMounted(() => {
@@ -86,6 +95,7 @@ onMounted(() => {
 
       <div class="actions">
         <v-btn variant="tonal" color="accent">Lasīt</v-btn>
+        <v-btn @click="saveBook" variant="tonal" color="accent">Saglabāt</v-btn>
       </div>
 
       <div class="description">
@@ -94,18 +104,18 @@ onMounted(() => {
 
      <div class="rating">
     <v-rating
-      :model-value="book.avg_rating || 0"
+      :model-value="book.reviews_avg_rating || 0"
       readonly
       half-increments
       color="#F59E0B"
     />
 
   <span class="rating-value">
-  {{ book.avg_rating ? Number(book.avg_rating).toFixed(1) : '0.0' }}
+  {{ book.reviews_avg_rating ? Number(book.reviews_avg_rating).toFixed(1) : '0.0' }}
 </span>
 
     <span class="rating-count">
-      ({{ book.ratings_count || 0 }})
+      ({{ book.reviews_count || 0 }})
     </span>
   </div>
 
@@ -146,7 +156,7 @@ onMounted(() => {
     Lūdzu, piesakieties lai komentētu
   </div>
 
-  <div v-if="comments.filter(c => c.comment).length === 0" class="mt-4">
+  <div v-if="comments.filter(c => c.comment).length === 0" class="mt-4" >
     Nav komentāru
   </div>
 
@@ -220,4 +230,11 @@ onMounted(() => {
   padding:15px 0;
   border-bottom:1px solid #eee;
 }
+
+.actions {
+  display: flex;
+  gap: 12px; 
+  margin-top: 10px;
+}
+
 </style>

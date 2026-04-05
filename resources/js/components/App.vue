@@ -10,16 +10,9 @@ export default {
     }
   },
 
-  mounted() {
+mounted() {
   const savedUser = localStorage.getItem('user')
-
-  if (savedUser) {
-    this.user = JSON.parse(savedUser)
-  } else {
-    axios.get('/user')
-      .then(res => this.user = res.data)
-      .catch(() => this.user = null)
-  }
+  this.user = savedUser ? JSON.parse(savedUser) : null
 },
 
   methods: {
@@ -54,7 +47,6 @@ export default {
   <v-app>
     <v-app-bar flat height="100">
       <v-toolbar-title class="px-8 logo">READALOT</v-toolbar-title>
-      
     <v-text-field 
     v-model="search"
     placeholder="Meklēt grāmatas..."
@@ -71,15 +63,41 @@ export default {
       <div class="d-flex align-center ga-9 px-11">
         <v-btn class="books" to="/books">GRĀMATAS</v-btn>
         <v-btn class="subscription">ABONĒT</v-btn>
-        <v-btn v-if="user">
-        {{ user.user_name }}
-      </v-btn>
+
+        <v-menu v-if="user" offset-y>
+        <template v-slot:activator="{ props }">
+          <v-btn v-bind="props" class="user">
+            {{ user.user_name }}
+            <v-icon end>mdi-chevron-down</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list>
+
+          <v-list-item @click="$router.push('/saved')">
+            <v-list-item-title>Saglabātās grāmatas</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item @click="$router.push('/comments')">
+            <v-list-item-title>Mani komentāri</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item @click="$router.push('/ratings')">
+            <v-list-item-title>Mani vērtējumi</v-list-item-title>
+          </v-list-item>
+
+          <v-divider />
+
+          <v-list-item @click="logout">
+            <v-list-item-title class="text-accent">Iziet</v-list-item-title>
+          </v-list-item>
+
+        </v-list>
+      </v-menu>
       <v-btn v-else class="signup" to="/register">
         REĢISTRĒTIES
       </v-btn>
-      <v-btn v-if="user" @click="logout">
-        LOGOUT
-      </v-btn>
+      
       </div>
     </v-app-bar>
 

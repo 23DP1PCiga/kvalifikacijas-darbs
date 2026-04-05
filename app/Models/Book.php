@@ -17,14 +17,14 @@ class Book extends Model
         'publishing_year'
     ];
 
-    
-    public function ratings()
-    {
-        return $this->hasMany(\App\Models\Review::class);
-    }
-
+    public function reviews()
+{
+    return $this->hasMany(\App\Models\Review::class);
+}
    
-     
-    
+    public function boards()
+{
+    return $this->hasMany(\App\Models\Board::class);
+}
 }
 
