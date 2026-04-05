@@ -17,3 +17,6 @@ Route::post('/comments', [ReviewController::class, 'store'])->middleware('auth:s
 Route::get('/saved-books', [BoardController::class, 'saved']);
 Route::post('/saved-books', [BoardController::class, 'addBook']);
 Route::delete('/saved-books/{id}', [BoardController::class, 'removeBook']);
+
+Route::get('/my-comments', [ReviewController::class, 'myComments']);
+

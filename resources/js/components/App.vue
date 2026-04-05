@@ -82,9 +82,6 @@ mounted() {
             <v-list-item-title>Mani komentāri</v-list-item-title>
           </v-list-item>
 
-          <v-list-item @click="$router.push('/ratings')">
-            <v-list-item-title>Mani vērtējumi</v-list-item-title>
-          </v-list-item>
 
           <v-divider />
 

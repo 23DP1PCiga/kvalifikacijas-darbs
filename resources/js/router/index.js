@@ -6,7 +6,7 @@ import BookPage from '../components/BookPage.vue'
 
 import Saved from '../components/Saved.vue'
 import MyComments from '../components/MyComments.vue'
-import MyRatings from '../components/MyRatings.vue'
+
 
 
 const routes = [
@@ -32,11 +32,7 @@ const routes = [
 
   { 
     path: '/comments', 
-    component: MyComments },
-
-  { 
-    path: '/ratings', 
-    component: MyRatings }
+    component: MyComments }
 ]
 
 

@@ -12,6 +12,11 @@ class Review extends Model
         'comment',
         'rating'
     ];
+
+    public function book()
+{
+    return $this->belongsTo(\App\Models\Book::class);
+}
 }
 
 

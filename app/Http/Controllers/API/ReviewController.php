@@ -29,4 +29,23 @@ class ReviewController extends Controller
         'user_id' => auth()->id()
     ]);
 }
+
+public function myComments()
+{
+    return \App\Models\Review::with('book')
+        ->where('user_id', auth()->id())
+        ->whereNotNull('comment')
+        ->where('comment', '!=', '')
+        ->latest()
+        ->get();
+}
+
+public function myRatings()
+{
+    return \App\Models\Review::with('book')
+        ->where('user_id', auth()->id())
+        ->whereNotNull('rating')
+        ->latest()
+        ->get();
+}
 }
