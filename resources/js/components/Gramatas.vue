@@ -14,21 +14,18 @@ const goToBook = (id) => {
 }
 
 const handleSort = (item) => {
-
-  if(item.value === 'all'){
+  if (item.value === 'all') {
     sortType.value = 'all'
-    router.push('/books')   
-  } 
-  else {
+  } else {
     sortOption.value = item.value
   }
-
 }
 
 const items = [
-  { title: 'Visi', value: 'all' },
+  //{ title: 'Visi', value: 'all' },
   { title: 'Jaunākās', value: 'new' },
   { title: 'No A-Z', value: 'az' },
+  { title: 'No Z-A', value: 'za' },
   { title: 'Augstākais vērtējums', value: 'rating' }
 ]
 
@@ -61,21 +58,24 @@ const fetchBooks = async (query) => {
 const sortedBooks = () => {
   let result = [...books.value]
 
-  if (sortType.value !== 'all') {
-    result = result.filter(book => book.genre === sortType.value)
-  }
+ if (sortType.value !== 'all') {
+  result = result.filter(book => book.genre === sortType.value)
+}
 
-   if (sortOption.value === 'az') {
+if (sortOption.value === 'az') {
   result.sort((a,b)=> a.title.localeCompare(b.title))
- }
+}
+
+if (sortOption.value === 'za') {
+  result.sort((a, b) => b.title.localeCompare(a.title))
+}
 
  if (sortOption.value === 'rating') {
-  result.sort((a,b)=> b.rating - a.rating)
- }
-
- if (sortOption.value === 'new') {
-  result.sort((a,b)=> b.publishing_year - a.publishing_year)
- }
+  result.sort((a, b) => (b.reviews_avg_rating || 0) - (a.reviews_avg_rating || 0))
+}
+if (sortOption.value === 'new') {
+  result.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+}
 
   return result
 }
@@ -85,6 +85,11 @@ const sortedBooks = () => {
 <v-container>
 <div class="d-flex align-center justify-space-between mb-6">
 <div class="d-flex ga-4 mb-6">
+
+<v-chip
+@click="sortType='all'"
+:color="sortType==='all' ? 'accent' : ''"
+>Visi</v-chip>
 
 <v-chip
 @click="sortType='Trilleri'"

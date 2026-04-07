@@ -27,12 +27,18 @@ onMounted(load)
       Nav atsauksmju
     </div>
 
-      <v-card
-        v-for="r in reviews"
-        :key="r.id"
-        class="mb-4 pa-3 review-card"
-        @click="goToBook(r.book.id)"
-      >
+    <v-card
+    v-for="r in reviews"
+    :key="r.id"
+    class="mb-4 pa-3 review-card"
+    @click="goToBook(r.book.id)"
+  >
+    <div class="card-content">
+
+      <div class="review-date">
+        {{ new Date(r.created_at).toLocaleDateString('lv-LV') }}
+      </div>
+
       <div class="book-title">
         {{ r.book.title }}
       </div>
@@ -49,14 +55,15 @@ onMounted(load)
         {{ r.comment }}
       </div>
 
-    </v-card>
+    </div>
+  </v-card>
   </v-container>
 </template>
 
 <style>
 h1{
-   font-family: "ABeeZee", sans-serif;
-  margin-bottom: 20px;
+  font-family: "ABeeZee", sans-serif;
+  margin-bottom: 40px;
   color: #424242;
 }
 
@@ -68,5 +75,18 @@ h1{
 .review-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.card-content {
+  position: relative;
+}
+
+.review-date {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 14px;
+  color: #999;
+  font-family: "ABeeZee", sans-serif;
 }
 </style>

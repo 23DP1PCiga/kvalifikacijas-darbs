@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Review;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -48,21 +49,71 @@ class AdminController extends Controller
     }
 
     $book->update($data);
-
     return $book;
-}
+    }
 
     public function deleteBook($id)
     {
         Book::destroy($id);
-
         return response()->json(['message' => 'Deleted']);
     }
 
     public function deleteReview($id)
     {
         Review::destroy($id);
-
         return response()->json(['message' => 'Review deleted']);
     }
+
+    public function stats()
+{
+    return response()->json([
+        'books' => Book::count(),
+        'users' => User::count(),
+        'reviews' => Review::count(),
+
+        'avg_rating' => round(
+            Review::whereNotNull('rating')->avg('rating'),
+            1
+        ),
+
+        'top_book' => Book::withCount('reviews')
+            ->orderByDesc('reviews_count')
+            ->first()
+    ]);
+}
+
+public function chartData()
+{
+    $books = \App\Models\Book::withCount('reviews')
+        ->orderByDesc('reviews_count')
+        ->take(5)
+        ->get();
+
+    return response()->json([
+        'labels' => $books->pluck('title'),
+        'data' => $books->pluck('reviews_count')
+    ]);
+}
+
+public function ratingsDistribution()
+{
+    $ratings = \App\Models\Review::selectRaw('rating, COUNT(*) as count')
+        ->whereNotNull('rating')
+        ->groupBy('rating')
+        ->orderBy('rating')
+        ->get();
+
+    $labels = [1, 2, 3, 4, 5];
+    $data = [];
+
+    foreach ($labels as $r) {
+        $found = $ratings->firstWhere('rating', $r);
+        $data[] = $found ? $found->count : 0;
+    }
+
+    return response()->json([
+        'labels' => $labels,
+        'data' => $data
+    ]);
+}
 }

@@ -15,7 +15,12 @@ const comments = ref([])
 const user = ref(null) 
 
 const deleteReview = async (id) => {
-  await axios.delete('/api/admin/reviews/' + id)
+  if (user.value?.role === 'admin') {
+    await axios.delete('/api/admin/reviews/' + id)
+  } else {
+    await axios.delete('/api/reviews/' + id)
+  }
+
   comments.value = comments.value.filter(c => c.id !== id)
 }
 
@@ -78,8 +83,7 @@ onMounted(() => {
 
 <template>
 <div v-if="book" class="book-page">
-
-  <div class="top-section">
+<div class="top-section">
 
 <v-img
   :src="book.cover && book.cover.startsWith('books/')
@@ -166,11 +170,14 @@ onMounted(() => {
     Nav komentāru
   </div>
 
-  <div 
+<div 
   v-for="comment in comments.filter(c => c.comment)" 
   :key="comment.id"
   class="comment"
 >
+  <div class="comment-date">
+    {{ new Date(comment.created_at).toLocaleDateString('lv-LV') }}
+  </div>
 
   <div class="comment-left">
     <div class="user-name">
@@ -185,21 +192,22 @@ onMounted(() => {
       color="#F59E0B"
     />
 
-    <div>{{ comment.comment }}</div>
+    <div class="comment-text">
+      {{ comment.comment }}
+    </div>
   </div>
 
-  <v-btn
-    v-if="user?.role === 'admin'"
-    icon
-    class="delete-btn"
-    color="accent"
-    @click.stop="deleteReview(comment.id)"
-  >
-    🗑
-  </v-btn>
+  <div class="comment-actions">
+    <v-btn
+      v-if="user?.role === 'admin' || user?.id === comment.user_id"
+      class="delete-btn"
+      @click.stop="deleteReview(comment.id)"
+    >
+      <v-icon size="18">mdi-delete</v-icon>
+    </v-btn>
+  </div>
 
 </div>
-
 </div>
 
 </div>
@@ -250,29 +258,44 @@ onMounted(() => {
   margin-bottom:15px;
 }
 
-.comment{
-  margin-top:20px;
-  padding:15px 0;
-  border-bottom:1px solid #eee;
-}
-
 .actions {
   display: flex;
   gap: 12px; 
   margin-top: 10px;
 }
 
+.comment-actions {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .comment {
+  position: relative; 
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-top: 20px;
-  padding: 15px 0;
   border-bottom: 1px solid #eee;
+  gap: 20px;
+  padding-top: 10px;
+}
+
+.comment-date {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 12px;
+  color: #999;
+  font-family: "ABeeZee", sans-serif;
 }
 
 .comment-left {
-  max-width: 90%;
+  flex: 1;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  min-width: 0;
 }
 
 .user-name {
@@ -282,9 +305,18 @@ onMounted(() => {
 }
 
 .delete-btn {
-  min-width: 36px !important;
-  height: 36px !important;
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  border-radius: 50% !important;
+  flex-shrink: 0;
+  background-color: white !important; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   padding: 0 !important;
 }
+
 
 </style>

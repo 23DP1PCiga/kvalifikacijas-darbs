@@ -49,14 +49,10 @@ const create = async () => {
     <h1>Pievienot grāmatu</h1>
 
     <v-text-field v-model="form.title" label="Nosaukums" />
-    <v-text-field label="Autors"v-model="form.author"/>
+    <v-text-field v-model="form.author" label="Autors" />
     <v-text-field v-model="form.genre" label="Žanrs" />
     <v-text-field v-model="form.price" label="Cena" />
-    <v-file-input
-  label="Cover"
-  accept="image/*"
-  @update:modelValue="handleFile"
-/>
+    <v-file-input label="Cover" accept="image/*" @update:modelValue="handleFile"/>
     <v-text-field v-model="form.publishing_year" label="Gads" />
 
     <v-textarea v-model="form.description" label="Apraksts" />

@@ -7,6 +7,11 @@ const route = useRoute()
 const router = useRouter()
 
 const form = ref({})
+const file = ref(null)
+
+const handleFile = (fileInput) => {
+  file.value = fileInput
+}
 
 const load = async () => {
   const res = await axios.get('/api/books/' + route.params.id)
@@ -14,7 +19,31 @@ const load = async () => {
 }
 
 const update = async () => {
-  await axios.put('/api/admin/books/' + route.params.id, form.value)
+  await axios.get('/sanctum/csrf-cookie')
+
+  const formData = new FormData()
+
+  formData.append('title', form.value.title)
+  formData.append('author', form.value.author)
+  formData.append('genre', form.value.genre)
+  formData.append('price', form.value.price)
+  formData.append('publishing_year', form.value.publishing_year)
+  formData.append('description', form.value.description)
+
+  if (file.value) {
+    formData.append('cover', file.value)
+  }
+
+  await axios.post(
+    '/api/admin/books/' + route.params.id + '?_method=PUT',
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }
+  )
+
   router.push('/admin')
 }
 
@@ -26,9 +55,10 @@ onMounted(load)
     <h1>Rediģēt grāmatu</h1>
 
     <v-text-field v-model="form.title" label="Nosaukums" />
+    <v-text-field v-model="form.author" label="Autors" />
     <v-text-field v-model="form.genre" label="Žanrs" />
     <v-text-field v-model="form.price" label="Cena" />
-    <v-text-field v-model="form.cover" label="Cover URL" />
+    <v-file-input label="Cover" accept="image/*" @update:modelValue="handleFile"/>
     <v-text-field v-model="form.publishing_year" label="Gads" />
 
     <v-textarea v-model="form.description" label="Apraksts" />

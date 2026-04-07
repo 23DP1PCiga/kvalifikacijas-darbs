@@ -74,16 +74,27 @@ mounted() {
 
         <v-list>
           <v-list-item 
-          v-if="user.role === 'admin'" 
-          @click="$router.push('/admin')"
-        >
-          <v-list-item-title>Admin panel</v-list-item-title>
+            v-if="user.role === 'admin'" 
+            @click="$router.push('/admin')"
+          >
+            <v-list-item-title>Admin panel</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item 
+            v-if="user.role === 'admin'"
+            @click="$router.push('/admin/stats')"
+          >
+            <v-list-item-title>Statistika</v-list-item-title>
           </v-list-item>
 
           <v-divider v-if="user.role === 'admin'" />
 
           <v-list-item @click="$router.push('/saved')">
             <v-list-item-title>Saglabātās grāmatas</v-list-item-title>
+          </v-list-item>
+          
+          <v-list-item @click="$router.push('/boards')">
+            <v-list-item-title>Kolekcijas</v-list-item-title>
           </v-list-item>
 
           <v-list-item @click="$router.push('/comments')">

@@ -9,7 +9,9 @@ import MyComments from '../components/MyComments.vue'
 import Admin from '../components/Admin.vue'
 import AdminCreate from '../components/AdminCreate.vue'
 import AdminEdit from '../components/AdminEdit.vue'
-
+import AdminStats from '../components/AdminStats.vue'
+import Boards from '../components/Boards.vue'
+import BoardPage from '../components/BoardPage.vue'
 
 
 const routes = [
@@ -26,8 +28,8 @@ const routes = [
     component: Books
   },
   {
-  path: '/books/:id',
-  component: BookPage
+    path: '/books/:id',
+    component: BookPage
   },
   { 
     path: '/saved', 
@@ -48,6 +50,18 @@ const routes = [
   {
     path: '/admin/edit/:id',
     component: AdminEdit
+  },
+  {
+    path: '/admin/stats',
+    component: AdminStats
+  },
+  {
+    path: '/boards',
+    component: Boards
+  },
+  {
+    path: '/boards/:id',
+    component: BoardPage
   }
 ]
 
