@@ -65,13 +65,13 @@ onMounted(load)
 <style>
 .title {
   font-family: "ABeeZee", sans-serif;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   color: #424242;
 }
 
 .description {
   color: #666;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
 }
 
 .book-card {
