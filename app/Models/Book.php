@@ -14,7 +14,8 @@ class Book extends Model
         'price',
         'description',
         'cover',
-        'publishing_year'
+        'publishing_year',
+        'file'
     ];
 
     public function reviews()

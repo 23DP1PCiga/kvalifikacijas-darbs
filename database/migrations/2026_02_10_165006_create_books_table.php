@@ -19,6 +19,7 @@ return new class extends Migration
         $table->decimal('price', 8, 2)->nullable();
         $table->string('cover')->nullable();
         $table->unsignedSmallInteger('publishing_year')->nullable();
+        $table->string('file')->nullable();
         $table->timestamps();
     });
 }

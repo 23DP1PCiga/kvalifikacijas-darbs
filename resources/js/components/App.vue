@@ -10,6 +10,7 @@ export default {
     }
   },
 
+
 mounted() {
   const savedUser = localStorage.getItem('user')
   this.user = savedUser ? JSON.parse(savedUser) : null

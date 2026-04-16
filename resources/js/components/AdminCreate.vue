@@ -15,9 +15,14 @@ const form = ref({
 })
 
 const file = ref(null) 
+const pdf = ref(null)
 
 const handleFile = (fileInput) => {
   file.value = fileInput
+}
+
+const handlePdf = (fileInput) => {
+  pdf.value = fileInput
 }
 
 const create = async () => {
@@ -32,6 +37,10 @@ const create = async () => {
 
   if (file.value) {
     formData.append('cover', file.value)
+  }
+
+  if (pdf.value) {
+    formData.append('file', pdf.value) 
   }
 
   try {
@@ -52,8 +61,9 @@ const create = async () => {
     <v-text-field v-model="form.author" label="Autors" />
     <v-text-field v-model="form.genre" label="Žanrs" />
     <v-text-field v-model="form.price" label="Cena" />
-    <v-file-input label="Cover" accept="image/*" @update:modelValue="handleFile"/>
+    <v-file-input label="Bilde" accept="image/*" @update:modelValue="handleFile"/>
     <v-text-field v-model="form.publishing_year" label="Gads" />
+    <v-file-input label="PDF fails" accept="application/pdf"@update:modelValue="handlePdf"/>
 
     <v-textarea v-model="form.description" label="Apraksts" />
 

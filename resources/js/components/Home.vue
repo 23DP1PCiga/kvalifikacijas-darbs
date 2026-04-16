@@ -100,11 +100,12 @@ onMounted(async () => {
 }
 
 .hero-left p{
-  font-size: 30px;
+  font-size: 40px;
   font-family: "ABeeZee", sans-serif;
   font-weight: 700;
   font-style: normal;
   color: #424242;
+  padding-top: 0;
 }
 
 </style>

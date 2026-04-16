@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Review;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -26,6 +27,11 @@ class AdminController extends Controller
     if ($request->hasFile('cover')) {
         $data['cover'] = $request->file('cover')->store('books', 'public');
     }
+
+    if ($request->hasFile('file')) {
+    $data['file'] = $request->file('file')->store('books', 'public');
+    }
+
 
     return Book::create($data);
 }
@@ -47,6 +53,11 @@ class AdminController extends Controller
     if ($request->hasFile('cover')) {
         $data['cover'] = $request->file('cover')->store('books', 'public');
     }
+
+    if ($request->hasFile('file')) {
+    $data['file'] = $request->file('file')->store('books', 'public');
+    }
+
 
     $book->update($data);
     return $book;

@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Book;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
 
 class BookSeeder extends Seeder
 {
@@ -19,7 +21,7 @@ class BookSeeder extends Seeder
 ['title'=>'Harijs Poters un Filozofu akmens','author'=>'Dž. K. Roulinga','genre'=>'Fantāzijas','description'=>'Zēns atklāj, ka ir burvis.','year'=>1997,'cover'=>'/image/harijspotersunfilozofuakmens.jpg'],
 ['title'=>'Harijs Poters un Noslēpumu kambaris','author'=>'Dž. K. Roulinga','genre'=>'Fantāzijas','description'=>'Harijs atgriežas Cūkkārpā otrajā gadā.','year'=>1998,'cover'=>'/image/harijs_poters_un_noslepumu_kamb.jpg'],
 ['title'=>'Vēja vārds','author'=>'Patriks Rotfuss','genre'=>'Fantāzijas','description'=>'Leģendārā burvja Kvota stāsts.','year'=>2007,'cover'=>'/image/veja-vards.jpeg'],
-
+['title'=>'Harijs Poters un Azkabanas gūsteknis','author'=>'Dž. K. Roulinga','genre'=>'Fantāzijas','description'=>'Tumsas pavēlnieks, vientuļš un bez draugiem, savu līdzgaitnieku pamests, slēpjas tālā nostūrī.','year'=>2009,'cover'=>'/image/azkabanas-gusteknis.jpg'],
 /* ================= KLASIKA ================= */
 
 ['title'=>'1984','author'=>'Džordžs Orvels','genre'=>'Klasika','description'=>'Stāsts par totalitāru sabiedrību.','year'=>1949,'cover'=>'/image/1984.jpg'],
@@ -27,7 +29,7 @@ class BookSeeder extends Seeder
 ['title'=>'Lepnums un aizspriedumi','author'=>'Džeina Ostina','genre'=>'Klasika','description'=>'Romāns par mīlestību un sabiedrību.','year'=>1813,'cover'=>'/image/lepnums-un-aizspriedumi.jpg '],
 ['title'=>'Karš un miers','author'=>'Ļevs Tolstojs','genre'=>'Klasika','description'=>'Plašs romāns par Krievijas sabiedrību.','year'=>1869,'cover'=>'/image/karsunmiers.jpg'],
 ['title'=>'Anna Kareņina','author'=>'Ļevs Tolstojs','genre'=>'Klasika','description'=>'Traģisks stāsts par mīlestību.','year'=>1877,'cover'=>'/image/anna_karenina.jpg'],
-
+['title'=>'Atjautīgais idalgo Lamančas Dons Kihots','author'=>'Servantess Saavedra Migels','genre'=>'Klasika','description'=>'Pasaules slavu viņš ir iemantojis ar romānu “Atjautīgais idalgo Lamančas dons Kihots”','year'=>1605,'cover'=>'/image/donkihots.jpg'],
 /* ================= TRILLERI ================= */
 
 ['title'=>'Da Vinči kods','author'=>'Dens Brauns','genre'=>'Trilleri','description'=>'Simbolu un slepenu organizāciju noslēpumi.','year'=>2003,'cover'=>'/image/daVincikods.jpg'],
@@ -41,6 +43,7 @@ class BookSeeder extends Seeder
 ['title'=>'Frankenšteins','author'=>'Mērija Šellija','genre'=>'Šausmas','description'=>'Zinātnieks rada dzīvību.','year'=>1818,'cover'=>'/image/frankenstein.jpg'],
 ['title'=>'Tas','author'=>'Stīvens Kings','genre'=>'Šausmas','description'=>'Briesmonis terorizē mazpilsētu.','year'=>1986,'cover'=>'/image/tas.jpg'],
 ['title'=>'Spīdēšana','author'=>'Stīvens Kings','genre'=>'Šausmas','description'=>'Viesnīca ar tumšiem noslēpumiem.','year'=>1977,'cover'=>'/image/spidesana.jpg '],
+['title'=>'Zvēru kapiņi','author'=>'Stīvens Kings','genre'=>'Šausmas','description'=>'Krīdi. Ideāla ģimene. Tēvs — ārsts, viņam ir skaista sieva, mīļa meitiņa un burvīgs mazulis dēlēns.','year'=>1983,'cover'=>'/image/pet-sematary.jpg'],
 
 /* ================= BIZNESS ================= */
 
@@ -61,7 +64,27 @@ class BookSeeder extends Seeder
         ];
 
         foreach ($books as $book) {
+        $fileName = 'books/' . uniqid() . '.pdf';
 
+        $html = "
+            <meta charset='UTF-8'>
+
+            <style>
+            body {
+                font-family: DejaVu Sans, sans-serif;
+            }
+            </style>
+
+            <h1>{$book['title']}</h1>
+            <h3>{$book['author']}</h3>
+            <p>{$book['description']}</p>
+            <hr>
+            <p>READALOT DEMO</p>
+        ";
+        $pdf = Pdf::loadHTML($html);
+        $pdf->setOptions(['defaultFont' => 'DejaVu Sans']);
+
+        Storage::disk('public')->put($fileName, $pdf->output());
             Book::create([
                 'title'=>$book['title'],
                 'author'=>$book['author'],
@@ -69,7 +92,8 @@ class BookSeeder extends Seeder
                 'description'=>$book['description'].' '.fake()->paragraph(7),
                 'publishing_year'=>$book['year'],
                 'price'=>fake()->randomFloat(2,2,11),
-                'cover' => $book['cover'] ?? '/image/book'.rand(1,30).'.jpg'
+                'cover' => $book['cover'] ?? '/image/book'.rand(1,30).'.jpg',
+                'file' => $fileName 
             ]);
 
         }

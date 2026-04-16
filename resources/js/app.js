@@ -18,7 +18,7 @@ const vuetify = createVuetify({
           primary: '#828270',
           secondary: '#000000',
           background: '#ffffff',
-          accent:'#c2848e;'
+          accent:'#c2848e'
         },
       },
     },

@@ -109,8 +109,8 @@ onMounted(load)
 <style>
 
 h1{
-    padding-bottom: 20px;
-    padding-top: 20px;
+    padding-bottom: 40px;
+    padding-top: 40px;
 }
 .board-title {
   font-size: 24px;
@@ -129,7 +129,7 @@ h1{
   cursor: pointer;
   transition: 0.2s;
   background: white;
-  box-shadow: 0 10px 30px rgba(130, 130, 112, 0.35);
+  box-shadow: 0 10px 30px rgba(194, 132, 142, 0.35);
  
 }
 
@@ -151,7 +151,7 @@ h1{
   max-height: 60px;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* максимум 3 строки */
+  -webkit-line-clamp: 3; 
   -webkit-box-orient: vertical;
   word-break: break-word;
 }

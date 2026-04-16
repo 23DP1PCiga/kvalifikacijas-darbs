@@ -14,6 +14,11 @@ const newComment = ref('')
 const comments = ref([])
 const user = ref(null) 
 
+const readBook = () => {
+  if (!book.value?.file) return
+  window.open('/storage/' + book.value.file, '_blank')
+}
+
 const deleteReview = async (id) => {
   if (user.value?.role === 'admin') {
     await axios.delete('/api/admin/reviews/' + id)
@@ -104,7 +109,7 @@ onMounted(() => {
       </div>
 
       <div class="actions">
-        <v-btn variant="tonal" color="accent">Lasīt</v-btn>
+        <v-btn variant="tonal" color="accent" @click="readBook">Lasīt</v-btn>
         <v-btn @click="saveBook" variant="tonal" color="accent">Saglabāt</v-btn>
       </div>
 
