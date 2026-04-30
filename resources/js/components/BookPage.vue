@@ -160,7 +160,7 @@ onMounted(() => {
       variant="tonal" 
       color="accent" 
       @click="addComment"
-      :disabled="!newComment.trim()"
+      :disabled="!newComment.trim()|| rating === 0"
     >
       Iesniegt
     </v-btn>

@@ -47,7 +47,13 @@ mounted() {
 <template>
   <v-app>
     <v-app-bar flat height="100">
-      <v-toolbar-title class="px-8 logo">READALOT</v-toolbar-title>
+      <v-toolbar-title 
+      class="px-8 logo" 
+      style="cursor:pointer"
+      @click="$router.push('/')">
+      READALOT
+    </v-toolbar-title>
+    
     <v-text-field 
     v-model="search"
     placeholder="Meklēt grāmatas..."
