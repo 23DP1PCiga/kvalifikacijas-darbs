@@ -118,6 +118,7 @@ const remove = async (id) => {
         item-value="id"
         label="Izvēlies kolekciju"
         no-data-text="Nav pieejamu kolekciju "
+        
       />
 
       <v-btn class="mt-2" color="accent" variant="tonal" @click="addToBoard">
