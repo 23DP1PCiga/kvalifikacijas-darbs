@@ -8,6 +8,7 @@ const router = useRouter()
 
 const form = ref({})
 const file = ref(null)
+const pdf = ref(null)
 
 const handleFile = (fileInput) => {
   file.value = fileInput
