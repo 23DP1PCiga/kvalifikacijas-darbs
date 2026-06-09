@@ -1,59 +1,146 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# READALOT
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> Tīmekļa bibliotēkas sistēma grāmatu pārlūkošanai, vērtēšanai, saglabāšanai un kolekciju veidošanai.
 
-## About Laravel
+Mūsdienās arvien vairāk cilvēku izmanto digitālās platformas grāmatu meklēšanai, lasīšanai un novērtēšanai. Tomēr daudzas sistēmas nepiedāvā iespēju vienuviet pārvaldīt savu lasīšanas pieredzi, saglabāt interesējošās grāmatas, veidot tematiskas kolekcijas un dalīties viedokļos ar citiem lietotājiem.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+READALOT ir tīmekļa sistēma, kas ļauj lietotājiem pārlūkot grāmatas, lasīt aprakstus, pievienot vērtējumus un atsauksmes, saglabāt grāmatas savā profilā, veidot kolekcijas un pārvaldīt savu lasīšanas pieredzi. Sistēmā ir pieejama arī administratora daļa grāmatu un lietotāju satura pārvaldībai.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Sistēmas funkcionalitāte
 
-## Learning Laravel
+### Lietotājs var:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+* Reģistrēties un autorizēties sistēmā;
+* Pārlūkot grāmatu katalogu;
+* Meklēt grāmatas pēc nosaukuma/autora;
+* Filtrēt grāmatas pēc žanra;
+* Kārtot grāmatas pēc:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+  * vērtējuma;
+  * alfabētiskā secībā;
+  * pievienošanas datuma;
+* Apskatīt detalizētu informāciju par grāmatu;
+* Pievienot vērtējumus un atsauksmes;
+* Dzēst savas atsauksmes;
+* Saglabāt grāmatas;
+* Veidot tematiskas kolekcijas;
+* Pievienot grāmatas kolekcijām;
+* Apskatīt savas atsauksmes;
+* Lasīt grāmatas tiešsaistē.
 
-## Laravel Sponsors
+### Administrators var:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+* Pievienot jaunas grāmatas;
+* Rediģēt grāmatu informāciju;
+* Dzēst grāmatas;
+* Dzēst lietotāju atsauksmes;
+* Apskatīt sistēmas statistiku;
+* Analizēt grafikus par:
 
-### Premium Partners
+  * grāmatu vērtējumiem;
+  * sistēmas aktivitāti.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Tehnoloģijas
 
-## Contributing
+### Frontend
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* Vue 3
+* Vuetify 3
+* CSS
+* HTML
+* Chart.js
 
-## Code of Conduct
+### Backend
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+* PHP 8
+* Laravel 11
+* Laravel Sanctum
+* MySQL
 
-## Security Vulnerabilities
+## Datu bāzes galvenās tabulas
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+* users
+* books
+* reviews
+* boards
+* board_books
 
-## License
+## Aplikācijas startēšana
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Backend
+```sh
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
+php artisan serve
+```
+
+### Frontend
+```sh
+npm install
+npm run dev
+```
+
+## Testa piemēri
+
+### Testa dati – Reģistrācija
+
+| Testa ID | Ieejas dati         | Izejas dati                |
+| -------- | ------------------- | -------------------------- |
+| 1        | Tukši lauki         | Visi lauki ir obligāti     |
+| 2        | Korekti dati        | Lietotājs tiek reģistrēts  |
+| 3        | Eksistējošs e-pasts | E-pasts jau tiek izmantots |
+
+
+### Testa dati – Atsauksmes pievienošana
+
+| Testa ID | Ieejas dati            | Izejas dati           |
+| -------- | ---------------------- | --------------------- |
+| 1        | Tukšs komentārs        | Komentārs ir obligāts |
+| 2        | Vērtējums 5, komentārs | Atsauksme pievienota  |
+| 3        | Vērtējums 0            | Nepareizs vērtējums   |
+
+
+### Testa dati – Grāmatas saglabāšana
+
+| Testa ID | Ieejas dati            | Izejas dati       |
+| -------- | ---------------------- | ----------------- |
+| 1        | Autorizēts lietotājs   | Grāmata saglabāta |
+| 2        | Neautorizēts lietotājs | Piekļuve liegta   |
+
+
+### Testa dati – Kolekcijas izveide
+
+| Testa ID | Ieejas dati     | Izejas dati           |
+| -------- | --------------- | --------------------- |
+| 1        | Tukšs nosaukums | Nosaukums ir obligāts |
+| 2        | Korekti dati    | Kolekcija izveidota   |
+
+
+### Testa dati – Administratora funkcijas
+
+| Testa ID | Ieejas dati         | Izejas dati         |
+| -------- | ------------------- | ------------------- |
+| 1        | Jauna grāmata       | Grāmata pievienota  |
+| 2        | Grāmatas rediģēšana | Izmaiņas saglabātas |
+| 3        | Grāmatas dzēšana    | Grāmata dzēsta      |
+| 4        | Atsauksmes dzēšana  | Atsauksme dzēsta    |
+
+
+## Sistēmas statistika
+
+Administratoram ir pieejama statistikas sadaļa, kur iespējams apskatīt:
+
+* Kopējo grāmatu skaitu;
+* Reģistrēto lietotāju skaitu;
+* Atsauksmju skaitu;
+* Vidējo vērtējumu sistēmā;
+* Populārāko grāmatu;
+* Vērtējumu sadalījuma grafikus.
+
+
+
