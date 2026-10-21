@@ -50,6 +50,7 @@ const create = async () => {
   } catch (e) {
     console.log(e.response.data)
   }
+
 }
 </script>
 

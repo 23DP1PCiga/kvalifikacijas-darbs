@@ -16,7 +16,9 @@ class BookController extends Controller
             return response()->json([]);
         }
 
-        return Book::where('title', 'LIKE', "%{$query}%")
+        return Book::withCount('reviews')
+            ->withAvg('reviews', 'rating')
+            ->where('title', 'LIKE', "%{$query}%")
             ->orWhere('author', 'LIKE', "%{$query}%")
             ->get();
     }
